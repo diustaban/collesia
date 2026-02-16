@@ -100,6 +100,9 @@
   th:nth-child(1), td:nth-child(1) { min-width: 80px !important; }
   th:nth-child(2), td:nth-child(2) { min-width: 60px !important; }
   th:nth-child(3), td:nth-child(3) { min-width: auto !important; white-space: normal; }
+  /* Комарници – цени в черно, заглавия на колони в бяло (без тюркоаз) */
+  #mosquito-content table td { color: #000 !important; }
+  #mosquito-content table th { color: #fff !important; }
   .notes{background:#F5FAFA;border-left:5px solid #2E8B83;padding:18px;font-size:clamp(.85rem,2.5vw,.95rem);border-radius:0 10px 10px 0;margin:25px 0;line-height:1.8;text-align:left}
   .examples-title{margin:30px 0 15px;font-size:1.2rem;color:#333;text-align:center;font-weight:600}
   .examples-gallery{display:flex;overflow-x:auto;gap:20px;padding:20px 0;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
@@ -263,6 +266,90 @@
   .info-header button.info-button:hover {
     transform: translateY(-2px);
   }
+  .calc-notes{width:100%;padding:10px 12px;border:1px solid #808080;border-radius:8px;font-size:0.95rem;font-family:inherit;resize:vertical;min-height:44px;box-sizing:border-box}
+  .calc-notes::placeholder{color:#888}
+  .calc-notes-label{font-size:0.9rem;color:#555;text-align:left;margin-top:4px}
+  .cart-icon{position:fixed;top:20px;right:20px;width:60px;height:60px;background:linear-gradient(135deg,#2E8B83,#3BA39B);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:1000;transition:transform .2s}
+  .cart-icon:hover{transform:scale(1.1)}
+  .cart-icon svg{width:30px;height:30px;fill:#fff}
+  .cart-badge{position:absolute;top:-5px;right:-5px;background:#E63946;color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+  .cart-sidebar{position:fixed;top:0;right:-400px;width:400px;max-width:90vw;height:100vh;background:#FDFDFD;box-shadow:-2px 0 10px rgba(0,0,0,.1);z-index:1001;transition:right .3s;overflow-y:auto;display:flex;flex-direction:column}
+  .cart-sidebar.open{right:0}
+  .cart-header{background:linear-gradient(135deg,#000,#1a1a1a);color:white;padding:20px;display:flex;justify-content:space-between;align-items:center}
+  .cart-header h2{margin:0;font-size:1.5rem}
+  .cart-close{background:none;border:none;color:white;font-size:28px;cursor:pointer;padding:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+  .cart-content{flex:1;padding:20px;overflow-y:auto}
+  .cart-item{background:#fff;border:1px solid #E9ECEF;border-radius:10px;padding:15px;margin-bottom:15px}
+  .cart-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .cart-item-title{font-weight:600;color:#333;font-size:1rem;flex:1;text-align:center}
+  .cart-item-remove{background:none;border:none;color:#E63946;cursor:pointer;font-size:20px;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+  .cart-item-details{font-size:0.9rem;color:#666;margin-bottom:10px;text-align:center}
+  .cart-item-price{font-weight:600;color:#2E8B83;font-size:1.1rem;text-align:center}
+  .cart-footer{background:#F5FAFA;padding:20px;border-top:1px solid #E9ECEF}
+  .cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;font-size:1.2rem;font-weight:600}
+  .cart-total-label{color:#333}
+  .cart-total-amount{color:#2E8B83;font-size:1.5rem}
+  .cart-actions{display:flex;gap:10px}
+  .cart-button{flex:1;padding:14px;border-radius:10px;border:none;font-weight:600;font-size:1rem;cursor:pointer;transition:transform .2s}
+  .cart-button-clear{background:#E9ECEF;color:#333}
+  .cart-button-checkout{background:linear-gradient(135deg,#2E8B83,#3BA39B);color:#fff}
+  .cart-button:hover{transform:translateY(-2px)}
+  .cart-empty{text-align:center;padding:40px 20px;color:#666}
+  .cart-empty svg{width:80px;height:80px;fill:#E9ECEF;margin-bottom:20px}
+  .add-to-cart-btn{width:100%;max-width:200px;padding:12px;background:linear-gradient(135deg,#2E8B83,#3BA39B);color:#fff;font-weight:600;border:none;border-radius:8px;cursor:pointer;margin:10px auto 0 auto;display:block;transition:transform .2s}
+  .add-to-cart-btn:hover{transform:translateY(-2px)}
+  .order-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:2000;align-items:center;justify-content:center}
+  .order-modal.open{display:flex}
+  .order-modal-content{background:#FDFDFD;border-radius:16px;padding:30px;width:90%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.2);position:relative}
+  .order-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;padding-bottom:15px;border-bottom:2px solid #E9ECEF}
+  .order-modal-header h2{margin:0;font-size:1.8rem;color:#333}
+  .order-modal-close{background:none;border:none;font-size:32px;cursor:pointer;color:#666;padding:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .2s}
+  .order-modal-close:hover{background:#E9ECEF}
+  .order-form-group{margin-bottom:20px}
+  .order-form-group label{display:block;margin-bottom:8px;font-weight:600;color:#333;font-size:1rem}
+  .order-form-group input,.order-form-group textarea{width:100%;padding:14px;border:1px solid #CED4DA;border-radius:10px;font-size:1rem;font-family:'Roboto',sans-serif;box-sizing:border-box}
+  .order-form-group input:focus,.order-form-group textarea:focus{outline:none;border-color:#2E8B83}
+  .order-form-group textarea{min-height:120px;resize:vertical}
+  .order-items-summary{background:#F5FAFA;border-radius:10px;padding:20px;margin-bottom:25px;max-height:300px;overflow-y:auto}
+  .order-item-summary{margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #E9ECEF}
+  .order-item-summary:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .order-item-summary-title{font-weight:600;color:#333;margin-bottom:8px;text-align:center}
+  .order-item-summary-details{font-size:.9rem;color:#666;margin-bottom:5px;line-height:1.5;text-align:center}
+  .order-item-summary-price{font-weight:600;color:#2E8B83;font-size:1.1rem;text-align:center}
+  .order-total{display:flex;justify-content:space-between;align-items:center;padding:15px;background:linear-gradient(135deg,#2E8B83,#3BA39B);border-radius:10px;margin-bottom:25px}
+  .order-total-label{font-weight:600;color:#fff;font-size:1.2rem}
+  .order-total-amount{font-weight:700;color:#fff;font-size:1.5rem}
+  .order-submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,#000,#1a1a1a);color:white;font-weight:600;border:none;border-radius:10px;font-size:1.2rem;cursor:pointer;transition:transform .2s;margin-top:10px}
+  .order-submit-btn:hover{transform:translateY(-2px)}
+  .order-submit-btn:disabled{opacity:.6;cursor:not-allowed}
+  .order-success{display:none;text-align:center;padding:40px 20px}
+  .order-success.show{display:block}
+  .order-success-icon{width:80px;height:80px;margin:0 auto 20px;background:#2E8B83;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;color:white}
+  .order-success h3{margin-bottom:10px;color:#333;font-size:1.5rem}
+  .order-success p{color:#666;font-size:1.1rem}
+  .perde-color-picker{display:block;background:#fff;border:2px solid #2E8B83;border-radius:10px;padding:14px 16px;margin:16px 0 0 0;text-align:center;width:100%;max-width:100%;overflow:visible;box-sizing:border-box;box-shadow:0 4px 14px rgba(46,139,131,.15)}
+  .perde-color-title{font-weight:600;color:#333;margin-bottom:10px;font-size:1rem}
+  .perde-color-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,48px));gap:6px;justify-content:center;align-items:center;width:100%;margin:0 auto;padding:8px 0;min-height:60px;box-sizing:border-box}
+  .perde-color-option{display:flex;align-items:center;justify-content:center}
+  .perde-color-swatch{width:48px;min-width:48px;height:28px;border-radius:4px;border:2px solid rgba(0,0,0,.2);cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.9);box-sizing:border-box;flex-shrink:0;line-height:1}
+  .perde-color-swatch:hover{transform:scale(1.08);border-color:#2E8B83}
+  .perde-color-swatch.active{border-color:#2E8B83;box-shadow:0 0 0 3px rgba(46,139,131,.4);transform:translateY(-2px)}
+  .perde-color-selected{margin-top:6px;font-size:.9rem;color:#666;text-align:center}
+  .perde-color-actions{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:10px}
+  .perde-clear-btn{background:#E9ECEF;color:#333;border:1px solid #CED4DA;border-radius:8px;padding:8px 16px;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .2s,border-color .2s}
+  .perde-clear-btn:hover{background:#DEE2E6;border-color:#ADB5BD}
+  .perde-symmetry-toggle{display:flex;align-items:center;gap:8px;font-weight:600;color:#333;background:#F5FAFA;border:2px solid #E5E5E5;border-radius:999px;padding:8px 18px;cursor:pointer;transition:border-color .2s}
+  .perde-symmetry-toggle input{appearance:none;width:18px;height:18px;border-radius:50%;border:2px solid #CED4DA;display:inline-flex;align-items:center;justify-content:center;background:#fff;transition:background .2s,border-color .2s}
+  .perde-symmetry-toggle input:checked{background:#2E8B83;border-color:#2E8B83}
+  .perde-symmetry-toggle input::after{content:"✓";color:#fff;font-size:12px;font-weight:bold;opacity:0;transition:opacity .2s}
+  .perde-symmetry-toggle input:checked::after{opacity:1}
+  .lameli-visualization{background:#fff;border:2px solid #2E8B83;border-radius:12px;padding:20px;margin:20px 0;text-align:center}
+  .lameli-info{margin-bottom:15px;font-size:1.1rem;font-weight:600;color:#333}
+  .lameli-container{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:flex-end;min-height:180px;padding:20px;background:#F5FAFA;border-radius:8px}
+  .lamela-item{background:transparent;border:2px solid #CED4DA;border-radius:6px;width:26px;height:150px;flex-shrink:0;transition:border-color .2s,transform .2s;cursor:pointer;position:relative}
+  .lamela-item:hover{transform:translateY(-2px);border-color:#2E8B83}
+  .lamela-summary{margin-top:10px;font-weight:600;color:#333;text-align:center}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
 </style>
 </head>
 <body>
@@ -291,6 +378,68 @@
     <h1 class="main-title">ЦЕНОВИ ЛИСТИ ЗА ДИСТРИБУТОРИ</h1>
     <p class="dds">ВСИЧКИ ЦЕНИ СА С ВКЛЮЧЕНО ДДС</p>
     <button class="download-button" onclick="downloadAllPagesAsImages()" style="max-width:400px;margin-bottom:30px;">Download Всички Страници</button>
+    <div class="cart-icon" onclick="toggleCart()" id="cartIcon" style="display:none;">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/></svg>
+      <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+    </div>
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h2>Кошница</h2>
+        <button class="cart-close" onclick="toggleCart()">×</button>
+      </div>
+      <div class="cart-content" id="cartContent">
+        <div class="cart-empty">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/></svg>
+          <p>Кошницата е празна</p>
+        </div>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display:none;">
+        <div class="cart-total">
+          <span class="cart-total-label">Общо:</span>
+          <span class="cart-total-amount" id="cartTotal">0.00 €</span>
+        </div>
+        <div class="cart-actions">
+          <button class="cart-button cart-button-clear" onclick="clearCart()">Изчисти</button>
+          <button class="cart-button cart-button-checkout" onclick="checkout()">Поръчай</button>
+        </div>
+      </div>
+    </div>
+    <div class="order-modal" id="orderModal">
+      <div class="order-modal-content">
+        <div class="order-modal-header">
+          <h2>Поръчка</h2>
+          <button class="order-modal-close" onclick="closeOrderModal()">&times;</button>
+        </div>
+        <div id="orderFormContainer">
+          <div class="order-items-summary" id="orderItemsSummary"></div>
+          <form id="orderForm" onsubmit="submitOrder(event)">
+            <div class="order-form-group">
+              <label for="orderClientNumber">Клиентски номер *</label>
+              <input type="text" id="orderClientNumber" name="clientNumber" required placeholder="Вашият клиентски номер">
+            </div>
+            <div class="order-form-group">
+              <label for="orderAddress">Адрес за доставка</label>
+              <textarea id="orderAddress" name="address" placeholder="Адрес за доставка (по избор)"></textarea>
+            </div>
+            <div class="order-form-group">
+              <label for="orderNotes">Бележки</label>
+              <textarea id="orderNotes" name="notes" placeholder="Допълнителни бележки или инструкции (по избор)"></textarea>
+            </div>
+            <div class="order-total">
+              <span class="order-total-label">Общо:</span>
+              <span class="order-total-amount" id="orderTotal">0.00 €</span>
+            </div>
+            <button type="submit" class="order-submit-btn" id="orderSubmitBtn">Изпрати поръчка</button>
+            <p style="margin-top:10px;font-size:0.85rem;color:#666;">При изпращане проверете пощата за потвърждение от FormSubmit.</p>
+          </form>
+        </div>
+        <div class="order-success" id="orderSuccess">
+          <div class="order-success-icon">✓</div>
+          <h3>Поръчката е изпратена успешно!</h3>
+          <p>Ще се свържем с вас скоро за потвърждение.</p>
+        </div>
+      </div>
+    </div>
     <div class="accordion-list">
     <!-- 1. РОЛО МИНИ -->
     <div class="accordion">
@@ -330,9 +479,12 @@
               <option value="white">Бял</option>
               <option value="brown">Кафяв</option>
             </select>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="mini-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateMini()">Изчисли</button>
           </div>
           <div class="calc-result" id="mini-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addMiniToCart()">Добави в кошницата</button>
           <div class="history" id="mini-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('rolo-mini-content', 'Роло Мини')">Download</button>
@@ -400,6 +552,7 @@
             <button onclick="calculateDN()">Изчисли</button>
           </div>
           <div class="calc-result" id="dn-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addDNToCart()">Добави в кошницата</button>
           <div class="history" id="dn-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('dn-mini-content', 'Ден и Нощ Мини')">Download</button>
@@ -468,9 +621,12 @@
               <option value="golden_oak">Златен дъб</option>
               <option value="walnut">Орех</option>
             </select>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="elegans-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateElegans()">Изчисли</button>
           </div>
           <div class="calc-result" id="elegans-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addElegansToCart()">Добави в кошницата</button>
           <div class="history" id="elegans-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('elegans-content', 'Роло Елеганс 29mm')">Download</button>
@@ -575,9 +731,12 @@
               <option value="golden_oak">Златен дъб</option>
               <option value="walnut">Орех</option>
             </select>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="dn-elegans-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateDNElegans()">Изчисли</button>
           </div>
           <div class="calc-result" id="dn-elegans-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addDNElegansToCart()">Добави в кошницата</button>
           <div class="history" id="dn-elegans-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('dn-elegans-content', 'Ден и Нощ Елеганс 29mm')">Download</button>
@@ -660,9 +819,12 @@
               <option value="golden_oak">Златен дъб</option>
               <option value="walnut">Орех</option>
             </select>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="rolo-plus-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateRoloPlus()">Изчисли</button>
           </div>
           <div class="calc-result" id="rolo-plus-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addRoloPlusToCart()">Добави в кошницата</button>
           <div class="history" id="rolo-plus-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('rolo-plus-content', 'Роло Елеганс+ (45мм кутия)')">Download</button>
@@ -770,9 +932,12 @@
               <option value="golden_oak">Златен дъб</option>
               <option value="walnut">Орех</option>
             </select>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="dnn-plus-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateDnnPlus()">Изчисли</button>
           </div>
           <div class="calc-result" id="dnn-plus-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addDnnPlusToCart()">Добави в кошницата</button>
           <div class="history" id="dnn-plus-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('dnn-plus-content', 'Ден и Нощ Елеганс+ (45мм кутия)')">Download</button>
@@ -871,9 +1036,12 @@
               <label><input type="radio" name="roletni-jumbo" class="roletni-extra" value="jumbo47">Джъмбо механизъм 47mm (+6.78 €/л.м.)</label>
               <label><input type="checkbox" class="roletni-extra" value="chain_metal">Метална верижка (+3.42 €/бр)</label>
             </div>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="roletni-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateRoletni()">Изчисли</button>
           </div>
           <div class="calc-result" id="roletni-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addRoletniToCart()">Добави в кошницата</button>
           <div class="history" id="roletni-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('roletni-content', 'Ролетни щори')">Download</button>
@@ -983,9 +1151,12 @@
               <label><input type="radio" name="day-night-jumbo" class="day-night-extra" value="jumbo47">Джъмбо механизъм 47mm (+6.78 €/л.м.)</label>
               <label><input type="checkbox" class="day-night-extra" value="chain_metal">Метална верижка (+3.42 €/бр)</label>
             </div>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="day-night-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateDayNight()">Изчисли</button>
           </div>
           <div class="calc-result" id="day-night-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addDayNightToCart()">Добави в кошницата</button>
           <div class="history" id="day-night-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('day-night-content', 'Щора Ден и Нощ')">Download</button>
@@ -1074,9 +1245,12 @@
               <option value="st">ST SERİSİ</option>
               <option value="linda">LINDA SERİSİ</option>
             </select>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="double-rolo-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateDoubleRolo()">Изчисли</button>
           </div>
           <div class="calc-result" id="double-rolo-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addDoubleRoloToCart()">Добави в кошницата</button>
           <div class="history" id="double-rolo-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('double-rolo-content', 'Двойно Роло')">Download</button>
@@ -1164,9 +1338,12 @@
               <label><input type="radio" name="plise-profile" class="plise-extra" value="clip_profile">Цял профил + клипсове (+3.00 €/m²)</label>
               <label><input type="radio" name="plise-profile" class="plise-extra" value="tape_profile">Цял профил + двойнозалепващо (+3.00 €/m²)</label>
             </div>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="plise-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculatePlise()">Изчисли</button>
           </div>
           <div class="calc-result" id="plise-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addPliseToCart()">Добави в кошницата</button>
           <div class="history" id="plise-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('plise-content', 'Плисе')">Download</button>
@@ -1227,13 +1404,37 @@
               <option value="smf">SMF</option>
               <option value="jp">JP VERDUO (цв.печат)</option>
             </select>
+            <select id="perde-control">
+              <option value="standard">Стандартно управление</option>
+              <option value="razdelno">Разделно управление</option>
+            </select>
             <div class="calc-checkboxes">
               <label><input type="radio" name="perde-shape" id="perde-standard" value="standard" checked>Стандартно</label>
               <label><input type="radio" name="perde-shape" id="perde-nonstandard" value="skosheni">Скосени (+30%)</label>
             </div>
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="perde-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculatePerde()">Изчисли</button>
           </div>
           <div class="calc-result" id="perde-result">—</div>
+          <div class="perde-color-picker" id="perde-color-picker">
+            <div class="perde-color-title">Цветове за ламели (по избор)</div>
+            <div class="perde-color-swatches" id="perde-color-swatches"></div>
+            <div class="perde-color-selected" id="perde-color-selected">—</div>
+            <div class="perde-color-actions">
+              <label class="perde-symmetry-toggle">
+                <input type="checkbox" id="perde-symmetry" checked>
+                <span>Симетрично оцветяване</span>
+              </label>
+              <button type="button" class="perde-clear-btn" id="perde-clear-colors">Изчисти цветовете</button>
+            </div>
+          </div>
+          <div class="lameli-visualization" id="lameli-visualization" style="display:none;">
+            <div class="lameli-info" id="lameli-info">Ламели: —</div>
+            <div class="lameli-container" id="lameli-container"></div>
+            <div class="lamela-summary" id="lamela-summary">—</div>
+          </div>
+          <button type="button" class="add-to-cart-btn" id="perde-add-to-cart" style="display:none;" onclick="addPerdeToCart()">Добави в кошницата</button>
           <div class="history" id="perde-history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('perde-content', 'Перде-Щора')">Download</button>
@@ -1280,9 +1481,12 @@
             </select>
             <input type="text" id="width" placeholder="Ширина (напр. 123.5 см)" />
             <input type="text" id="height" placeholder="Височина (напр. 187.2 см)" />
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="mosquito-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculate()">Изчисли</button>
           </div>
           <div class="calc-result" id="result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addMosquitoToCart()">Добави в кошницата</button>
           <div class="history" id="history"><strong>Последни резултати:</strong></div>
         </div>
         <button class="download-button" onclick="downloadProductAsImage('mosquito-content', 'Комарници')">Download</button>
@@ -1313,15 +1517,18 @@
     <div class="accordion">
       <div class="accordion-header" onclick="toggleAccordion(this)">Дървени Щори<span class="novo-badge">ново</span></div>
       <div class="accordion-content">
-        <img src="https://i.imgur.com/ZIZnWsS.jpg" alt="Дървени Щори Банер" class="product-banner">
+        <img src="https://i.imgur.com/ZiaHRXo.png" alt="Дървени Щори Банер" class="product-banner">
         <div class="calculator">
           <h3>Калкулатор за Дървени Щори</h3>
           <div class="calc-input">
             <input type="number" id="dreveni-width" placeholder="Ширина (см)" min="1">
             <input type="number" id="dreveni-height" placeholder="Височина (см)" min="1">
+            <label class="calc-notes-label">Бележки (по избор)</label>
+            <input type="text" id="dreveni-notes" class="calc-notes" placeholder="Бележки / Номер на плат (по избор)">
             <button onclick="calculateDreveni()">Изчисли</button>
           </div>
           <div class="calc-result" id="dreveni-result">—</div>
+          <button type="button" class="add-to-cart-btn" onclick="addDreveniToCart()">Добави в кошницата</button>
           <div class="calc-checkboxes dreveni-extras">
             <label><input type="checkbox" class="dreveni-extra" data-label="Колани" data-value="5">Колани (+5 €/м²)</label>
             <label><input type="checkbox" class="dreveni-extra" data-label="Управление със синджир" data-value="3.5">Управление със синджир (+3.50 €/м²)</label>
@@ -1380,6 +1587,9 @@
     let pliseCalcHistory = [];
     let perdeCalcHistory = [];
     let dreveniHistory = [];
+    let cart = [];
+    let lastMiniResult = null, lastDNResult = null, lastElegansResult = null, lastDNElegansResult = null, lastRoloPlusResult = null, lastDnnPlusResult = null, lastRoletniResult = null, lastDayNightResult = null, lastDoubleRoloResult = null, lastPliseResult = null, lastPerdeResult = null, lastMosquitoResult = null, lastDreveniResult = null;
+    let lamelaColors = [], selectedPerdeColor = null, perdeColoringRequired = false, lamelaFirstFillDone = false;
     const miniPriceTable = {
       50: {50:9.81,60:10.75,70:11.70,80:12.64,90:13.58,100:14.52,110:15.48,120:16.56,130:17.45,140:18.31,150:19.24},
       60: {50:10.07,60:11.07,70:12.07,80:13.06,90:14.05,100:15.04,110:16.06,120:17.15,130:18.15,140:19.05,150:20.03},
@@ -1667,6 +1877,38 @@
       smf: { price: 22.57, label: "SMF" },
       jp: { price: 30.79, label: "JP VERDUO (цв.печат)" }
     };
+    const _perdeColorHex = ["#FDFDFD","#F2F1EE","#ECEBD8","#D6D4C4","#C4CBB8","#CCC89D","#A89B7A","#A89389","#939486","#9E9280","#5B3C3C","#B7BDC1","#BFB7C1","#8A8F90","#696969","#858890","#54565B","#303135","#1F2024","#161616","#DFCBDA","#DCA6CE","#5F1A4D","#BEA801","#A59730","#FA832F","#D6EFE9","#5C8952","#43653B","#058AA4","#024F5F","#6B0E0E"];
+    function _perdePalette(prefix) {
+      return _perdeColorHex.map(function(hex, i) { var n = String(i + 1).padStart(2, "0"); return { code: prefix + "-" + n, name: "", color: hex }; });
+    }
+    const _djPaletteHex = ["#F9F9F7","#EBE6E1","#EEDDD6","#B2A8A2","#8C7769","#6A4E3F","#A3A4A3","#C6A44A","#6F3A6F","#AE97A5","#C6B2C0","#6495ED","#3B67B0","#57636D","#3D3332"];
+    function _djPalette(prefix) {
+      return _djPaletteHex.map(function(hex, i) { var n = String(i + 1).padStart(2, "0"); return { code: prefix + "-" + n, name: "", color: hex }; });
+    }
+    const _smPaletteHex = ["#FAFAFA","#FFF8DC","#E0E0E0","#FAFAFA","#FAFAFA","#1E0A1E","#FAFAFA","#E8B4B8","#FAFAFA","#FAFAFA","#191970","#5C4033","#FF8C00","#FFD700","#556B2F","#FAFAFA","#FAFAFA","#D2B48C","#000000","#FAFAFA","#2F4F4F","#FAFAFA","#87CEEB","#E6A8D7","#808080","#B8B8E0","#FAFAFA"];
+    function _smPalette(prefix) {
+      return _smPaletteHex.map(function(hex, i) { var n = String(i + 1).padStart(2, "0"); return { code: prefix + "-" + n, name: "", color: hex }; });
+    }
+    const _smfPaletteHex = ["#F0F0F0","#B8B8B8","#E8D4C4","#5C4033","#2F4F4F","#787878","#FFFFFF","#FFF8DC","#BDB86B","#FFFFFF","#B0B0B0","#D2B48C","#8B7355","#FFFFFF","#1A2E1A","#F5E6F0","#E8C4D8","#9370DB","#4A3A4A","#B87070","#FFD700","#FF8C00","#1E90FF","#20B2AA","#556B2F","#228B22","#3D4A3D","#DC143C","#6B0E0E","#000000"];
+    function _smfPalette(prefix) {
+      return _smfPaletteHex.map(function(hex, i) { var n = String(i + 1).padStart(2, "0"); return { code: prefix + "-" + n, name: "", color: hex }; });
+    }
+    const perdeSeriesColors = {
+      dt: [
+        { code: "DT-01", name: "", color: "#FFFFFF" }, { code: "DT-02", name: "", color: "#FFFBF0" }, { code: "DT-03", name: "", color: "#3D2E1F" }, { code: "DT-04", name: "", color: "#F0E0EC" }, { code: "DT-05", name: "", color: "#FF8C00" }, { code: "DT-06", name: "", color: "#000000" }, { code: "DT-07", name: "", color: "#F5F0E0" }, { code: "DT-08", name: "", color: "#D4E8B0" }, { code: "DT-09", name: "", color: "#8B6914" }, { code: "DT-10", name: "", color: "#B8860B" }, { code: "DT-11", name: "", color: "#87CEEB" }, { code: "DT-12", name: "", color: "#6A5ACD" }, { code: "DT-13", name: "", color: "#FFFACD" }, { code: "DT-14", name: "", color: "#FFD700" }, { code: "DT-15", name: "", color: "#E8A317" }, { code: "DT-16", name: "", color: "#CD5C5C" }, { code: "DT-17", name: "", color: "#FFE4EC" }, { code: "DT-18", name: "", color: "#E8A0B0" }, { code: "DT-19", name: "", color: "#8B008B" }, { code: "DT-20", name: "", color: "#4A0A4A" }, { code: "DT-21", name: "", color: "#B8A0C8" }, { code: "DT-22", name: "", color: "#E0F7FA" }, { code: "DT-23", name: "", color: "#B0C4DE" }, { code: "DT-24", name: "", color: "#3D4A2E" }, { code: "DT-25", name: "", color: "#6B7A4A" }, { code: "DT-26", name: "", color: "#228B22" }, { code: "DT-27", name: "", color: "#20B2AA" }, { code: "DT-28", name: "", color: "#40E0D0" }, { code: "DT-29", name: "", color: "#48D1CC" }, { code: "DT-30", name: "", color: "#2F4F4F" }, { code: "DT-31", name: "", color: "#191970" }, { code: "DT-32", name: "", color: "#800020" }, { code: "DT-33", name: "", color: "#FFFFFF" }, { code: "DT-34", name: "", color: "#C8B896" }, { code: "DT-35", name: "", color: "#C8C0D8" }, { code: "DT-36", name: "", color: "#2E1A0A" }, { code: "DT-37", name: "", color: "#4A5568" }, { code: "DT-38", name: "", color: "#2D3748" }, { code: "DT-39", name: "", color: "#5C4033" }, { code: "DT-40", name: "", color: "#E8E4E0" }, { code: "DT-41", name: "", color: "#A0A0A0" }, { code: "DT-42", name: "", color: "#708090" }, { code: "DT-43", name: "", color: "#F5F5F5" }
+      ],
+      nd: [
+        { code: "ND-01", name: "", color: "#FAFAF9" }, { code: "ND-02", name: "", color: "#FFF8E0" }, { code: "ND-03", name: "", color: "#E8E4F0" }, { code: "ND-04", name: "", color: "#7A7685" }, { code: "ND-05", name: "", color: "#4A4A38" }, { code: "ND-06", name: "", color: "#E0E0E0" }, { code: "ND-07", name: "", color: "#D4A800" }, { code: "ND-08", name: "", color: "#FFFFFF" }, { code: "ND-09", name: "", color: "#E8E0EC" }, { code: "ND-10", name: "", color: "#FFFFFF" }, { code: "ND-11", name: "", color: "#5A8B7A" }, { code: "ND-12", name: "", color: "#1A2F4A" }, { code: "ND-13", name: "", color: "#000000" }, { code: "ND-14", name: "", color: "#D4C4A8" }, { code: "ND-15", name: "", color: "#D0B898" }, { code: "ND-16", name: "", color: "#B8864A" }, { code: "ND-17", name: "", color: "#B0B0B0" }, { code: "ND-18", name: "", color: "#2C2C2C" }, { code: "ND-19", name: "", color: "#A00A2E" }, { code: "ND-20", name: "", color: "#FF6600" }, { code: "ND-21", name: "", color: "#8FBC00" }, { code: "ND-22", name: "", color: "#2D5016" }, { code: "ND-23", name: "", color: "#1E3A5F" }, { code: "ND-24", name: "", color: "#6B0E0E" }, { code: "ND-25", name: "", color: "#707070" }, { code: "ND-26", name: "", color: "#FFFFFF" }
+      ],
+      dj: _djPalette("DJ-I"),
+      sm: _smPalette("SM"),
+      smf: _smfPalette("SMF"),
+      jp: _perdePalette("JP"),
+      br: [
+        { code: "BR-01", name: "", color: "#FDFDFD" }, { code: "BR-02", name: "", color: "#F2F1EE" }, { code: "BR-03", name: "", color: "#ECEBD8" }, { code: "BR-04", name: "", color: "#D6D4C4" }, { code: "BR-05", name: "", color: "#C4CBB8" }, { code: "BR-06", name: "", color: "#CCC89D" }, { code: "BR-07", name: "", color: "#A89B7A" }, { code: "BR-08", name: "", color: "#A89389" }, { code: "BR-09", name: "", color: "#939486" }, { code: "BR-10", name: "", color: "#9E9280" }, { code: "BR-11", name: "", color: "#5B3C3C" }, { code: "BR-12", name: "", color: "#B7BDC1" }, { code: "BR-13", name: "", color: "#BFB7C1" }, { code: "BR-14", name: "", color: "#8A8F90" }, { code: "BR-15", name: "", color: "#696969" }, { code: "BR-16", name: "", color: "#858890" }, { code: "BR-17", name: "", color: "#54565B" }, { code: "BR-18", name: "", color: "#303135" }, { code: "BR-19", name: "", color: "#1F2024" }, { code: "BR-20", name: "", color: "#161616" }, { code: "BR-21", name: "", color: "#DFCBDA" }, { code: "BR-22", name: "", color: "#DCA6CE" }, { code: "BR-23", name: "", color: "#5F1A4D" }, { code: "BR-24", name: "", color: "#BEA801" }, { code: "BR-25", name: "", color: "#A59730" }, { code: "BR-26", name: "", color: "#FA832F" }, { code: "BR-27", name: "", color: "#D6EFE9" }, { code: "BR-28", name: "", color: "#5C8952" }, { code: "BR-29", name: "", color: "#43653B" }, { code: "BR-30", name: "", color: "#058AA4" }, { code: "BR-31", name: "", color: "#024F5F" }, { code: "BR-32", name: "", color: "#6B0E0E" }
+      ],
+      mc: _perdePalette("MC")
+    };
     
     // Функция за получаване на правилните цени в зависимост от потребителя
     function getPerdeSeries() {
@@ -1886,7 +2128,7 @@
       table.innerHTML = html;
     }
      const singleWhite = [
-  ["19.25", "20.11", "20.86", "21.62", "22.38", "23.13", "23.89", "24.65", "25.40", "26.16", "26.92", "27.67", "28.43", "29.19", "29.94"],
+  ["19.35", "20.11", "20.86", "21.62", "22.38", "23.13", "23.89", "24.65", "25.40", "26.16", "26.92", "27.67", "28.43", "29.19", "29.94"],
   ["20.53", "21.29", "22.05", "22.80", "23.56", "24.32", "25.07", "25.83", "26.59", "27.34", "28.10", "28.86", "29.61", "30.37", "31.13"],
   ["21.74", "22.49", "23.25", "24.01", "24.76", "25.52", "26.28", "27.03", "27.79", "28.55", "29.30", "30.06", "30.82", "31.57", "32.33"],
   ["22.92", "23.68", "24.43", "25.19", "25.95", "26.70", "27.46", "28.22", "28.97", "29.73", "30.49", "31.24", "32.00", "32.76", "33.51"],
@@ -1909,7 +2151,7 @@
     const doubleWhite = [
       ["41,44", "42,46", "43,49", "44,56", "45,65", "46,76", "47,90", "49,07", "50,27", "51,50", "52,76", "54,06", "55,38", "56,74", "58,13"],
       ["42,63", "43,68", "44,75", "45,85", "46,98", "48,14", "49,32", "50,54", "51,78", "53,05", "54,36", "55,70", "57,08", "58,48", "59,93"],
-      ["43,87", "44,96", "46,07", "47,21", "48,38", "49,57", "50,80", "51,06", "53,35", "54,67", "56,03", "57,42", "58,84", "60,31", "61,81"],
+      ["43,87", "44,96", "46,07", "47,21", "48,38", "49,57", "50,80", "52,06", "53,35", "54,67", "56,03", "57,42", "58,84", "60,31", "61,81"],
       ["45,16", "46,29", "47,44", "48,62", "49,83", "51,08", "52,35", "53,65", "54,99", "56,36", "57,77", "59,21", "60,69", "62,21", "63,76"],
       ["46,51", "47,68", "48,88", "50,10", "51,36", "52,64", "53,96", "55,31", "56,70", "58,12", "59,58", "61,08", "62,62", "64,19", "65,81"],
       ["47,93", "49,13", "50,37", "51,64", "52,94", "54,28", "55,65", "57,05", "58,49", "59,97", "61,48", "63,03", "64,63", "66,26", "67,94"],
@@ -1927,7 +2169,7 @@
       ["25.33","26.12","26.92","27.71","28.51","29.30","30.10","30.89","31.69","32.48","33.27","34.07","34.86","35.66","36.45"],
       ["26.57","27.36","28.16","28.95","29.75","30.54","31.34","32.13","32.93","33.72","34.52","35.31","36.11","36.90","37.70"],
       ["27.83","28.63","29.42","30.22","31.01","31.81","32.60","33.40","34.19","34.99","35.78","36.58","37.37","38.16","38.96"],
-      ["29.08","29.88","30.67","31.46","32.26","33.05","33.84","34.64","35.43","36.23","37.02","37.82","38.61","39.41","40.20"],
+      ["29.08","29.87","30.67","31.46","32.26","33.05","33.84","34.64","35.43","36.23","37.02","37.82","38.61","39.41","40.20"],
       ["30.34","31.13","31.93","32.72","33.52","34.31","35.11","35.90","36.70","37.49","38.29","39.08","39.88","40.67","41.47"],
       ["31.58","32.38","33.17","33.97","34.76","35.56","36.35","37.15","37.94","38.73","39.53","40.32","41.12","41.91","42.71"],
       ["32.85","33.64","34.44","35.23","36.03","36.82","37.61","38.41","39.20","40.00","40.79","41.59","42.38","43.18","43.97"],
@@ -2062,6 +2304,7 @@
       miniHistory.push(`${width}×${height} → ${w}×${h} - Група ${fabric} - ${getColorDisplay(color)} - ${final.toFixed(2)}€`);
       if (miniHistory.length > 5) miniHistory.shift();
       updateMiniHistory();
+      lastMiniResult = { name: "Роло Мини", price: final, details: { "Размери": width + "×" + height + " см → " + w + "×" + h + " см", "Група": fabric, "Плат": platName, "Цвят": getColorDisplay(color) } };
     }
     function updateMiniHistory() {
       const hist = document.getElementById("mini-history");
@@ -2086,8 +2329,7 @@
       const w = roundUpTo10(width), h = roundUpTo10(height);
       const base = dnPriceTable[h]?.[w];
       if (!base) { res.style.display = "block"; res.style.background = "#fadbd8"; res.style.color = "#c0392b"; res.innerHTML = "Грешка в таблицата."; return; }
-      let k = dnFabricCoeff[fabric];
-      if (color === 'brown') k *= 1.05;
+      const k = dnFabricCoeff[fabric];
       const final = base * k;
       const platName = document.querySelector(`#dn-fabric option[value="${fabric}"]`).textContent;
       res.style.display = "block";
@@ -2102,6 +2344,7 @@
       dnHistory.push(`${width}×${height} → ${w}×${h} - Група ${fabric} - ${getColorDisplay(color)} - ${final.toFixed(2)}€`);
       if (dnHistory.length > 5) dnHistory.shift();
       updateDnHistory();
+      lastDNResult = { name: "Ден и Нощ Мини", price: final, details: { "Размери": width + "×" + height + " см → " + w + "×" + h + " см", "Група": fabric, "Плат": platName, "Цвят": getColorDisplay(color) } };
     }
     function updateDnHistory() {
       const hist = document.getElementById("dn-history");
@@ -2142,6 +2385,7 @@
       elegansHistory.push(`${width}×${height} → ${w}×${h} - Група ${fabric} - ${getColorDisplay(color)} - ${final.toFixed(2)}€`);
       if (elegansHistory.length > 5) elegansHistory.shift();
       updateElegansHistory();
+      lastElegansResult = { name: "Роло Елеганс 29mm", price: final, details: { "Размери": width + "×" + height + " см → " + w + "×" + h + " см", "Група": fabric, "Плат": platName, "Цвят": getColorDisplay(color) } };
     }
     function updateElegansHistory() {
       const hist = document.getElementById("elegans-history");
@@ -2222,6 +2466,7 @@
       roloPlusHistory.push(`${width}×${height} → ${w}×${h} - Група ${fabric} - ${getColorDisplay(color)} - ${final.toFixed(2)}€`);
       if (roloPlusHistory.length > 5) roloPlusHistory.shift();
       updateRoloPlusHistory();
+      lastRoloPlusResult = { name: "Роло Елеганс+ (45мм кутия)", price: final, details: { "Размери": width + "×" + height + " см → " + w + "×" + h + " см", "Група": fabric, "Плат": platName, "Цвят": getColorDisplay(color) } };
     }
     function updateRoloPlusHistory() {
       const hist = document.getElementById("rolo-plus-history");
@@ -2262,6 +2507,7 @@
       dnnPlusHistory.push(`${width}×${height} → ${w}×${h} - Група ${fabric} - ${getColorDisplay(color)} - ${final.toFixed(2)}€`);
       if (dnnPlusHistory.length > 5) dnnPlusHistory.shift();
       updateDnnPlusHistory();
+      lastDnnPlusResult = { name: "Ден и Нощ Елеганс+ (45мм кутия)", price: final, details: { "Размери": width + "×" + height + " см → " + w + "×" + h + " см", "Група": fabric, "Плат": platName, "Цвят": getColorDisplay(color) } };
     }
     function updateDnnPlusHistory() {
       const hist = document.getElementById("dnn-plus-history");
@@ -2349,6 +2595,7 @@
       `;
       showCalcSuccess(res, content);
       pushHistory(roletniHistory, `Ролетни щори: ${formatDimension(widthIn)}×${formatDimension(heightIn)} → ${width}×${height} - ${price.toFixed(2)}€`, "roletni-history");
+      lastRoletniResult = { name: "Ролетни щори", price: price, details: { "Размери": formatDimension(widthIn) + "×" + formatDimension(heightIn) + " см → " + width + "×" + height + " см", "Квадратура": area.toFixed(2) + " м²", "Серия": series.label, "Екстри": formatExtrasSummary(extras, roletniExtras) } };
     }
     function calculateDayNight() {
       const widthIn = parseFloat(document.getElementById("day-night-width").value);
@@ -2426,6 +2673,7 @@
       `;
       showCalcSuccess(res, content);
       pushHistory(dayNightCalcHistory, `Щора "Ден и Нощ": ${formatDimension(widthIn)}×${formatDimension(heightIn)} → ${width}×${height} - ${price.toFixed(2)}€`, "day-night-history");
+      lastDayNightResult = { name: "Щора Ден и Нощ", price: price, details: { "Размери": formatDimension(widthIn) + "×" + formatDimension(heightIn) + " см → " + width + "×" + height + " см", "Квадратура": area.toFixed(2) + " м²", "Серия": series.label, "Екстри": formatExtrasSummary(extras, dayNightExtras) } };
     }
     function calculateDoubleRolo() {
       const widthIn = parseFloat(document.getElementById("double-rolo-width").value);
@@ -2484,6 +2732,7 @@
       `;
       showCalcSuccess(res, content);
       pushHistory(doubleRoloHistory, `Двойно Роло: ${formatDimension(widthIn)}×${formatDimension(heightIn)} → ${width}×${height} - ${price.toFixed(2)}€ (добави към роло щората)`, "double-rolo-history");
+      lastDoubleRoloResult = { name: "Двойно Роло", price: price, details: { "Размери": formatDimension(widthIn) + "×" + formatDimension(heightIn) + " см → " + width + "×" + height + " см", "Квадратура": area.toFixed(2) + " м²", "Серия": series.label } };
     }
     function toggleDoublePlise() {
       const isDouble = document.getElementById("plise-double").checked;
@@ -2666,11 +2915,14 @@
         ? `Двойно плисе: ${formatDimension(widthIn)}×${formatDimension(heightIn)} → ${area.toFixed(1)} м² - ${price.toFixed(2)}€`
         : `Плисе: ${formatDimension(widthIn)}×${formatDimension(heightIn)} → ${area.toFixed(1)} м² - ${price.toFixed(2)}€`;
       pushHistory(pliseCalcHistory, historyText, "plise-history");
+      lastPliseResult = { name: isDouble ? "Двойно плисе" : "Плисе", price: price, details: { "Размери": formatDimension(widthIn) + "×" + formatDimension(heightIn) + " см", "Квадратура": area.toFixed(1) + " м²", "Екстри": extras.length > 0 ? formatExtrasSummary(extras, pliseExtras) : "Няма" } };
     }
     function calculatePerde() {
       const widthIn = parseFloat(document.getElementById("perde-width").value);
       const heightIn = parseFloat(document.getElementById("perde-height").value);
       const seriesKey = document.getElementById("perde-series").value;
+      const controlEl = document.getElementById("perde-control");
+      const control = (controlEl && controlEl.value) ? controlEl.value : "standard";
       const shapeType = document.querySelector("input[name='perde-shape']:checked");
       const nonStandard = shapeType && shapeType.value === "skosheni";
       const res = document.getElementById("perde-result");
@@ -2678,7 +2930,6 @@
         showCalcError(res, "Попълнете всички полета!");
         return;
       }
-      // Максимум от таблицата
       const max = maxDimensions.perde;
       if (widthIn > max.maxWidth || heightIn > max.maxHeight) {
         showCalcError(res, `Максимални размери: ${max.maxWidth} см ширина × ${max.maxHeight} см височина.`);
@@ -2706,6 +2957,16 @@
       `;
       showCalcSuccess(res, content);
       pushHistory(perdeCalcHistory, `Перде-Щора: ${formatDimension(widthIn)}×${formatDimension(heightIn)} → ${width}×${height} - ${price.toFixed(2)}€`, "perde-history");
+      lastPerdeResult = {
+        name: "Перде-Щора",
+        price: price,
+        details: { "Размери": formatDimension(widthIn) + "×" + formatDimension(heightIn) + " см → " + width + "×" + height + " см", "Серия": series.label, "Екстри": nonStandard ? "Скосени (+30%)" : "Няма" }
+      };
+      renderPerdeColorOptions(seriesKey);
+      const lameliCount = calculateLameliCount(width, control);
+      visualizeLameli(lameliCount, width);
+      const perdeAddBtn = document.getElementById("perde-add-to-cart");
+      if (perdeAddBtn) perdeAddBtn.style.display = "block";
     }
     function calculateDreveni() {
       const widthIn = parseFloat(document.getElementById("dreveni-width").value);
@@ -2760,6 +3021,7 @@
       `;
       showCalcSuccess(res, content);
       pushHistory(dreveniHistory, `Дървени Щори: ${formatDimension(widthIn)}×${formatDimension(heightIn)} → ${area.toFixed(1)} м² - ${price.toFixed(2)}€`, "dreveni-history");
+      lastDreveniResult = { name: "Дървени Щори", price: price, details: { "Размери": formatDimension(widthIn) + "×" + formatDimension(heightIn) + " см", "Квадратура": area.toFixed(1) + " м²", "Екстри": extrasSummary } };
     }
     function getHeightIndex(height, type) {
       const minH = type === 'single' ? 0 : 141;
@@ -2826,6 +3088,9 @@
       history.push(`${type} ${profile}: ${w}×${h} → ${price.toFixed(2)}€`);
       if (history.length > 5) history.shift();
       updateHistory();
+      var typeLabel = type === "single" ? "Еднокрилен" : "Двукрилен";
+      var profileLabel = profile === "white" ? "Бял" : profile === "color" ? "Цветен" : "Фладер";
+      lastMosquitoResult = { name: "Комарници", price: price, details: { "Тип": typeLabel, "Профил": profileLabel, "Размери": w + "×" + h + " см" } };
     }
     function updateHistory() {
       const hist = document.getElementById("history");
@@ -3977,6 +4242,8 @@
         priceList.style.flexDirection = "column";
         priceList.style.alignItems = "center";
         priceList.style.gap = "30px";
+        var cartIconEl = document.getElementById("cartIcon");
+        if (cartIconEl) cartIconEl.style.display = "flex";
         initTables();
         updatePerdePriceTable(); // Актуализира таблицата с цени за Перде-Щора
       } else {
@@ -3989,6 +4256,444 @@
         event.preventDefault();
         login();
       }
+    }
+    function toggleCart() {
+      var sidebar = document.getElementById("cartSidebar");
+      if (sidebar) sidebar.classList.toggle("open");
+    }
+    function addToCart(productName, price, details) {
+      details = details || {};
+      var item = { id: Date.now(), name: productName, price: parseFloat(price), details: details, quantity: 1 };
+      cart.push(item);
+      updateCartDisplay();
+      showCartNotification();
+    }
+    function addMiniToCart() {
+      if (!lastMiniResult) return;
+      var notesEl = document.getElementById("mini-notes");
+      if (notesEl && notesEl.value.trim()) lastMiniResult.details = lastMiniResult.details || {}, lastMiniResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastMiniResult.name, lastMiniResult.price, lastMiniResult.details);
+    }
+    function addDNToCart() {
+      if (!lastDNResult) return;
+      var notesEl = document.getElementById("dn-notes");
+      if (notesEl && notesEl.value.trim()) lastDNResult.details = lastDNResult.details || {}, lastDNResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastDNResult.name, lastDNResult.price, lastDNResult.details);
+    }
+    function addElegansToCart() {
+      if (!lastElegansResult) return;
+      var notesEl = document.getElementById("elegans-notes");
+      if (notesEl && notesEl.value.trim()) lastElegansResult.details = lastElegansResult.details || {}, lastElegansResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastElegansResult.name, lastElegansResult.price, lastElegansResult.details);
+    }
+    function addDNElegansToCart() {
+      if (!lastDNElegansResult) return;
+      var notesEl = document.getElementById("dn-elegans-notes");
+      if (notesEl && notesEl.value.trim()) lastDNElegansResult.details = lastDNElegansResult.details || {}, lastDNElegansResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastDNElegansResult.name, lastDNElegansResult.price, lastDNElegansResult.details);
+    }
+    function addRoloPlusToCart() {
+      if (!lastRoloPlusResult) return;
+      var notesEl = document.getElementById("rolo-plus-notes");
+      if (notesEl && notesEl.value.trim()) lastRoloPlusResult.details = lastRoloPlusResult.details || {}, lastRoloPlusResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastRoloPlusResult.name, lastRoloPlusResult.price, lastRoloPlusResult.details);
+    }
+    function addDnnPlusToCart() {
+      if (!lastDnnPlusResult) return;
+      var notesEl = document.getElementById("dnn-plus-notes");
+      if (notesEl && notesEl.value.trim()) lastDnnPlusResult.details = lastDnnPlusResult.details || {}, lastDnnPlusResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastDnnPlusResult.name, lastDnnPlusResult.price, lastDnnPlusResult.details);
+    }
+    function addRoletniToCart() {
+      if (!lastRoletniResult) return;
+      var notesEl = document.getElementById("roletni-notes");
+      if (notesEl && notesEl.value.trim()) lastRoletniResult.details = lastRoletniResult.details || {}, lastRoletniResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastRoletniResult.name, lastRoletniResult.price, lastRoletniResult.details);
+    }
+    function addDayNightToCart() {
+      if (!lastDayNightResult) return;
+      var notesEl = document.getElementById("day-night-notes");
+      if (notesEl && notesEl.value.trim()) lastDayNightResult.details = lastDayNightResult.details || {}, lastDayNightResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastDayNightResult.name, lastDayNightResult.price, lastDayNightResult.details);
+    }
+    function addDoubleRoloToCart() {
+      if (!lastDoubleRoloResult) return;
+      var notesEl = document.getElementById("double-rolo-notes");
+      if (notesEl && notesEl.value.trim()) lastDoubleRoloResult.details = lastDoubleRoloResult.details || {}, lastDoubleRoloResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastDoubleRoloResult.name, lastDoubleRoloResult.price, lastDoubleRoloResult.details);
+    }
+    function addPliseToCart() {
+      if (!lastPliseResult) return;
+      var notesEl = document.getElementById("plise-notes");
+      if (notesEl && notesEl.value.trim()) lastPliseResult.details = lastPliseResult.details || {}, lastPliseResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastPliseResult.name, lastPliseResult.price, lastPliseResult.details);
+    }
+    function addPerdeToCart() {
+      if (!lastPerdeResult) return;
+      if (!ensureLamelaColoringComplete(true)) return;
+      var distribution = getLamelaDistributionText();
+      if (perdeColoringRequired) {
+        lastPerdeResult.details = lastPerdeResult.details || {};
+        lastPerdeResult.details["Разпределение"] = distribution || "Не е завършено";
+      }
+      var notesEl = document.getElementById("perde-notes");
+      if (notesEl && notesEl.value.trim()) lastPerdeResult.details = lastPerdeResult.details || {}, lastPerdeResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastPerdeResult.name, lastPerdeResult.price, lastPerdeResult.details);
+    }
+    function addMosquitoToCart() {
+      if (!lastMosquitoResult) return;
+      var notesEl = document.getElementById("mosquito-notes");
+      if (notesEl && notesEl.value.trim()) lastMosquitoResult.details = lastMosquitoResult.details || {}, lastMosquitoResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastMosquitoResult.name, lastMosquitoResult.price, lastMosquitoResult.details);
+    }
+    function addDreveniToCart() {
+      if (!lastDreveniResult) return;
+      var notesEl = document.getElementById("dreveni-notes");
+      if (notesEl && notesEl.value.trim()) lastDreveniResult.details = lastDreveniResult.details || {}, lastDreveniResult.details["Бележки"] = notesEl.value.trim();
+      addToCart(lastDreveniResult.name, lastDreveniResult.price, lastDreveniResult.details);
+    }
+    function removeFromCart(itemId) {
+      cart = cart.filter(function(item) { return item.id !== itemId; });
+      updateCartDisplay();
+    }
+    function clearCart(silent) {
+      if (!silent && !confirm("Сигурни ли сте, че искате да изчистите кошницата?")) return;
+      cart = [];
+      updateCartDisplay();
+    }
+    function updateCartDisplay() {
+      var cartContent = document.getElementById("cartContent");
+      var cartFooter = document.getElementById("cartFooter");
+      var cartBadge = document.getElementById("cartBadge");
+      var cartTotal = document.getElementById("cartTotal");
+      if (!cartContent) return;
+      if (cart.length === 0) {
+        cartContent.innerHTML = '<div class="cart-empty"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><p>Кошницата е празна</p></div>';
+        if (cartFooter) cartFooter.style.display = "none";
+        if (cartBadge) cartBadge.style.display = "none";
+      } else {
+        var total = 0;
+        cartContent.innerHTML = cart.map(function(item) {
+          var itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          var detailsHtml = Object.keys(item.details).length > 0 ? '<div class="cart-item-details">' + Object.entries(item.details).map(function(e) { return "<strong>" + e[0] + ":</strong> " + e[1]; }).join("<br>") + "</div>" : "";
+          return '<div class="cart-item"><div class="cart-item-header"><div class="cart-item-title">' + item.name + '</div><button class="cart-item-remove" onclick="removeFromCart(' + item.id + ')">×</button></div>' + detailsHtml + '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;"><div><span style="color:#666;font-size:0.9rem;">Количество: ' + item.quantity + '</span></div><div class="cart-item-price">' + itemTotal.toFixed(2) + ' €</div></div></div>';
+        }).join("");
+        if (cartTotal) cartTotal.textContent = total.toFixed(2) + " €";
+        if (cartFooter) cartFooter.style.display = "block";
+        if (cartBadge) { cartBadge.textContent = cart.length; cartBadge.style.display = "flex"; }
+      }
+    }
+    function showCartNotification() {
+      var badge = document.getElementById("cartBadge");
+      if (badge) { badge.style.animation = "none"; setTimeout(function() { badge.style.animation = "pulse 0.5s"; }, 10); }
+    }
+    var WEB3FORMS_ACCESS_KEY = "";
+    function checkout() {
+      if (cart.length === 0) { alert("Кошницата е празна!"); return; }
+      openOrderModal();
+    }
+    function openOrderModal() {
+      var modal = document.getElementById("orderModal");
+      var itemsSummary = document.getElementById("orderItemsSummary");
+      var orderTotal = document.getElementById("orderTotal");
+      var orderForm = document.getElementById("orderForm");
+      var orderSuccess = document.getElementById("orderSuccess");
+      var orderFormContainer = document.getElementById("orderFormContainer");
+      var submitBtn = document.getElementById("orderSubmitBtn");
+      if (orderFormContainer) orderFormContainer.style.display = "block";
+      if (orderSuccess) orderSuccess.classList.remove("show");
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Изпрати поръчка"; }
+      var total = cart.reduce(function(sum, item) { return sum + item.price * item.quantity; }, 0);
+      if (itemsSummary) {
+        itemsSummary.innerHTML = cart.map(function(item) {
+          var itemTotal = item.price * item.quantity;
+          var detailsHtml = Object.keys(item.details).length > 0 ? '<div class="order-item-summary-details">' + Object.entries(item.details).map(function(e) { return "<strong>" + e[0] + ":</strong> " + e[1]; }).join("<br>") + "</div>" : "";
+          return '<div class="order-item-summary"><div class="order-item-summary-title">' + item.name + " x " + item.quantity + '</div>' + detailsHtml + '<div class="order-item-summary-price">' + itemTotal.toFixed(2) + " €</div></div>";
+        }).join("");
+      }
+      if (orderTotal) orderTotal.textContent = total.toFixed(2) + " €";
+      if (modal) modal.classList.add("open");
+    }
+    function closeOrderModal() {
+      var modal = document.getElementById("orderModal");
+      if (modal) modal.classList.remove("open");
+      var form = document.getElementById("orderForm");
+      if (form) form.reset();
+      var orderFormContainer = document.getElementById("orderFormContainer");
+      if (orderFormContainer) orderFormContainer.style.display = "block";
+      var orderSuccess = document.getElementById("orderSuccess");
+      if (orderSuccess) orderSuccess.classList.remove("show");
+      var submitBtn = document.getElementById("orderSubmitBtn");
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Изпрати поръчка"; }
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      var modal = document.getElementById("orderModal");
+      if (modal) modal.addEventListener("click", function(e) { if (e.target === modal) closeOrderModal(); });
+      var perdeClear = document.getElementById("perde-clear-colors");
+      if (perdeClear) perdeClear.addEventListener("click", clearPerdeColors);
+      var perdeSym = document.getElementById("perde-symmetry");
+      if (perdeSym) perdeSym.addEventListener("change", function() { window.symmetryEnabled = this.checked; });
+      if (typeof renderPerdeColorOptions === "function") renderPerdeColorOptions("");
+    });
+    window.symmetryEnabled = true;
+    function submitOrder(event) {
+      event.preventDefault();
+      var submitBtn = document.getElementById("orderSubmitBtn");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Изпращане...";
+      if (window.location.protocol === "file:") {
+        var openMailto = confirm("Страницата е отворена като локален файл. Използвайте „Да“ за изпращане чрез имейл клиент.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Изпрати поръчка";
+        if (openMailto) {
+          var clientNumber = document.getElementById("orderClientNumber").value;
+          var address = (document.getElementById("orderAddress") && document.getElementById("orderAddress").value) || "Не е посочен";
+          var notes = (document.getElementById("orderNotes") && document.getElementById("orderNotes").value) || "Няма";
+          var itemsList = cart.map(function(item) {
+            var itemTotal = item.price * item.quantity;
+            var details = Object.keys(item.details).length > 0 ? Object.entries(item.details).map(function(kv) { return kv[0] + ": " + kv[1]; }).join("; ") : "Няма";
+            return item.name + " x " + item.quantity + " (" + item.price.toFixed(2) + " €) = " + itemTotal.toFixed(2) + " €\nДетайли: " + details;
+          }).join("\n\n");
+          var total = cart.reduce(function(s, i) { return s + i.price * i.quantity; }, 0).toFixed(2);
+          var message = "Нова поръчка от клиентски номер: " + clientNumber + "\n\nКлиентски номер: " + clientNumber + "\nАдрес: " + address + "\n\nАртикули:\n" + itemsList + "\n\nОбща сума: " + total + " €\n\nБележки: " + notes;
+          window.location.href = "mailto:moderndecor.office@gmail.bg?subject=" + encodeURIComponent("Нова поръчка: " + clientNumber) + "&body=" + encodeURIComponent(message);
+        }
+        return;
+      }
+      var clientNumber = document.getElementById("orderClientNumber").value;
+      var address = (document.getElementById("orderAddress") && document.getElementById("orderAddress").value) || "Не е посочен";
+      var notes = (document.getElementById("orderNotes") && document.getElementById("orderNotes").value) || "Няма";
+      var itemsList = cart.map(function(item) {
+        var itemTotal = item.price * item.quantity;
+        var details = Object.keys(item.details).length > 0 ? Object.entries(item.details).map(function(kv) { return kv[0] + ": " + kv[1]; }).join("; ") : "Няма";
+        return item.name + " x " + item.quantity + " (" + item.price.toFixed(2) + " €) = " + itemTotal.toFixed(2) + " €\nДетайли: " + details;
+      }).join("\n\n");
+      var total = cart.reduce(function(s, i) { return s + i.price * i.quantity; }, 0).toFixed(2);
+      var message = "Нова поръчка от клиентски номер: " + clientNumber + "\n\nКлиентски номер: " + clientNumber + "\nАдрес: " + address + "\n\nАртикули:\n" + itemsList + "\n\nОбща сума: " + total + " €\n\nБележки: " + notes;
+      if (WEB3FORMS_ACCESS_KEY) {
+        fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ access_key: WEB3FORMS_ACCESS_KEY, clientNumber: clientNumber, address: address, notes: notes, message: message }) })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.success) { clearCart(true); closeOrderModal(); document.getElementById("orderFormContainer").style.display = "none"; document.getElementById("orderSuccess").classList.add("show"); } else { submitBtn.disabled = false; submitBtn.textContent = "Изпрати поръчка"; alert("Грешка при изпращане."); }
+          })
+          .catch(function() { submitBtn.disabled = false; submitBtn.textContent = "Изпрати поръчка"; alert("Грешка при изпращане."); });
+      } else {
+        window.location.href = "mailto:moderndecor.office@gmail.bg?subject=" + encodeURIComponent("Нова поръчка: " + clientNumber) + "&body=" + encodeURIComponent(message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Изпрати поръчка";
+      }
+    }
+    function renderPerdeColorOptions(seriesKey) {
+      var picker = document.getElementById("perde-color-picker");
+      var swatchesWrap = document.getElementById("perde-color-swatches");
+      var selectedText = document.getElementById("perde-color-selected");
+      if (!picker || !swatchesWrap || !selectedText) return;
+      picker.style.display = "block";
+      if (!seriesKey) {
+        perdeColoringRequired = false;
+        picker.removeAttribute("data-series");
+        swatchesWrap.innerHTML = "<p style=\"grid-column:1/-1;color:#666;font-size:0.9rem;margin:0;\">Изберете серия и натиснете „Изчисли“, за да видите цветовете.</p>";
+        selectedText.textContent = "—";
+        resetLamelaColors();
+        return;
+      }
+      var normalizedKey = String(seriesKey).toLowerCase().trim();
+      var palette = perdeSeriesColors[normalizedKey];
+      if (!palette || !Array.isArray(palette) || palette.length === 0) {
+        perdeColoringRequired = false;
+        swatchesWrap.innerHTML = "<p style=\"grid-column:1/-1;color:#666;font-size:0.9rem;margin:0;\">Няма налични цветове за тази серия.</p>";
+        selectedText.textContent = "—";
+        return;
+      }
+      var previousSeries = picker.dataset.series;
+      if (previousSeries !== normalizedKey) resetLamelaColors();
+      picker.dataset.series = normalizedKey;
+      perdeColoringRequired = true;
+      selectedText.textContent = "Няма избран цвят";
+      selectedPerdeColor = null;
+      var html = "";
+      for (var i = 0; i < palette.length; i++) {
+        var c = palette[i];
+        var code = (c && c.code) ? String(c.code) : "";
+        var color = (c && c.color) ? String(c.color) : "#ccc";
+        var name = (c && c.name) ? String(c.name) : "";
+        var title = (code + (name ? " • " + name : "")).replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        var codeEsc = code.replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        html += "<div class=\"perde-color-option\"><div class=\"perde-color-swatch\" data-code=\"" + codeEsc + "\" data-color=\"" + color.replace(/"/g, "&quot;") + "\" title=\"" + title + "\" style=\"background-color:" + color + "\">" + codeEsc + "</div></div>";
+      }
+      swatchesWrap.innerHTML = html;
+      swatchesWrap.onclick = function(ev) {
+        var swatch = ev.target && ev.target.classList && ev.target.classList.contains("perde-color-swatch") ? ev.target : (ev.target.closest && ev.target.closest(".perde-color-swatch"));
+        if (!swatch) return;
+        var code = swatch.getAttribute("data-code") || "";
+        var color = swatch.getAttribute("data-color") || "";
+        selectPerdeColor({ code: code, name: "", color: color }, swatch);
+      };
+      try { picker.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (e) {}
+    }
+    function selectPerdeColor(color, swatchElement) {
+      if (!color) return;
+      selectedPerdeColor = { code: color.code, name: color.name || "", color: color.color };
+      document.querySelectorAll(".perde-color-swatch").forEach(function(el) { el.classList.remove("active"); });
+      if (swatchElement) swatchElement.classList.add("active");
+      var selectedText = document.getElementById("perde-color-selected");
+      if (selectedText) selectedText.textContent = color.code + (color.name ? " – " + color.name : "");
+    }
+    function clearPerdeColors() {
+      resetLamelaColors(true);
+      selectedPerdeColor = null;
+      document.querySelectorAll(".perde-color-swatch").forEach(function(el) { el.classList.remove("active"); });
+      var selectedText = document.getElementById("perde-color-selected");
+      if (selectedText) selectedText.textContent = "Няма избран цвят";
+    }
+    function resetLamelaColors(resetFirstFill) {
+      lamelaColors = [];
+      if (resetFirstFill) lamelaFirstFillDone = false;
+      document.querySelectorAll(".lamela-item").forEach(function(el) { setLamelaColorStyles(el, null); });
+      updateLamelaSummary();
+    }
+    function setLamelaColorStyles(element, colorData) {
+      if (!element) return;
+      if (!colorData) {
+        element.style.background = "transparent";
+        element.style.borderColor = "#CED4DA";
+        element.removeAttribute("data-color-code");
+        return;
+      }
+      element.style.background = colorData.color;
+      element.style.borderColor = isDarkColor(colorData.color) ? "#F8F9FA" : "#1A1A1A";
+      element.setAttribute("data-color-code", colorData.code);
+    }
+    function setLamelaColorAtIndex(index, colorData) {
+      if (!Array.isArray(lamelaColors) || index < 0 || index >= lamelaColors.length) return;
+      lamelaColors[index] = colorData ? { code: colorData.code, name: colorData.name || "", color: colorData.color } : null;
+      var lamelaEl = document.querySelector(".lamela-item[data-index=\"" + index + "\"]");
+      if (lamelaEl) setLamelaColorStyles(lamelaEl, lamelaColors[index]);
+    }
+    function hasAllLamelaColors() {
+      return Array.isArray(lamelaColors) && lamelaColors.length > 0 && lamelaColors.every(function(c) { return c && c.code; });
+    }
+    function isLamelaColoringComplete() {
+      if (!perdeColoringRequired) return true;
+      return hasAllLamelaColors();
+    }
+    function ensureLamelaColoringComplete(showAlert) {
+      var complete = isLamelaColoringComplete();
+      if (!complete && showAlert) alert("Моля оцветете всички ламели преди да добавите продукта в кошницата.");
+      return complete;
+    }
+    function getLamelaDistributionText() {
+      if (!perdeColoringRequired || !hasAllLamelaColors()) return "";
+      var segments = [], currentCode = null, count = 0;
+      var pushSegment = function() {
+        if (count > 0 && currentCode) segments.push(count + "-" + currentCode.toUpperCase());
+      };
+      lamelaColors.forEach(function(color) {
+        var code = color && color.code ? color.code : null;
+        if (code === currentCode) count++;
+        else { pushSegment(); currentCode = code; count = code ? 1 : 0; }
+      });
+      pushSegment();
+      return segments.join(", ");
+    }
+    function updateLamelaSummary() {
+      var summaryEl = document.getElementById("lamela-summary");
+      if (!summaryEl) return;
+      var summaryValue;
+      if (!perdeColoringRequired) summaryValue = "Не е приложимо";
+      else if (hasAllLamelaColors()) summaryValue = getLamelaDistributionText() || "Не е завършено";
+      else if (lamelaColors.length > 0) summaryValue = "Не е завършено";
+      else summaryValue = "Изберете цветове";
+      summaryEl.textContent = "Разпределение: " + summaryValue;
+      if (lastPerdeResult) {
+        lastPerdeResult.details = lastPerdeResult.details || {};
+        lastPerdeResult.details["Разпределение"] = summaryValue;
+      }
+    }
+    function isDarkColor(hexColor) {
+      if (!hexColor) return false;
+      var hex = hexColor.replace("#", "");
+      if (hex.length === 3) hex = hex.split("").map(function(ch) { return ch + ch; }).join("");
+      var r = parseInt(hex.substring(0, 2), 16), g = parseInt(hex.substring(2, 4), 16), b = parseInt(hex.substring(4, 6), 16);
+      if ([r, g, b].some(function(v) { return isNaN(v); })) return false;
+      return (0.299 * r + 0.587 * g + 0.114 * b) < 140;
+    }
+    function applyColorToLamela(index) {
+      if (!perdeColoringRequired) return;
+      if (!selectedPerdeColor) {
+        var selectedText = document.getElementById("perde-color-selected");
+        if (selectedText) selectedText.textContent = "Изберете цвят и кликнете върху ламела.";
+        return;
+      }
+      if (!Array.isArray(lamelaColors) || lamelaColors.length === 0) {
+        alert("Моля изчислете пердето, за да визуализирате ламелите преди оцветяване.");
+        return;
+      }
+      var hasAny = lamelaColors.some(function(c) { return c; });
+      if (!lamelaFirstFillDone || !hasAny) {
+        for (var i = 0; i < lamelaColors.length; i++) setLamelaColorAtIndex(i, selectedPerdeColor);
+        lamelaFirstFillDone = true;
+        updateLamelaSummary();
+        return;
+      }
+      var targets = [index];
+      if (window.symmetryEnabled && lamelaColors.length > 0) targets.push(lamelaColors.length - 1 - index);
+      targets.forEach(function(i) { if (i >= 0 && i < lamelaColors.length) setLamelaColorAtIndex(i, selectedPerdeColor); });
+      updateLamelaSummary();
+    }
+    function clearLamelaColor(index) {
+      if (!perdeColoringRequired || !Array.isArray(lamelaColors) || lamelaColors.length === 0) return;
+      setLamelaColorAtIndex(index, null);
+      if (!lamelaColors.some(function(c) { return c; })) lamelaFirstFillDone = false;
+      updateLamelaSummary();
+    }
+    function calculateLameliCount(width, controlType) {
+      controlType = controlType || "standard";
+      if (!width || width <= 0) return 0;
+      var standardIntervals = [
+        { min: 30, max: 36, count: 2 }, { min: 37, max: 47, count: 3 }, { min: 48, max: 57, count: 4 }, { min: 58, max: 68, count: 5 }, { min: 69, max: 78, count: 6 }, { min: 79, max: 89, count: 7 }, { min: 90, max: 99, count: 8 }, { min: 100, max: 110, count: 9 }, { min: 111, max: 120, count: 10 }, { min: 121, max: 131, count: 11 }, { min: 132, max: 141, count: 12 }, { min: 142, max: 152, count: 13 }, { min: 153, max: 162, count: 14 }, { min: 163, max: 173, count: 15 }, { min: 174, max: 183, count: 16 }, { min: 184, max: 194, count: 17 }, { min: 195, max: 204, count: 18 }, { min: 205, max: 215, count: 19 }, { min: 216, max: 225, count: 20 }, { min: 226, max: 236, count: 21 }, { min: 237, max: 246, count: 22 }, { min: 247, max: 257, count: 23 }, { min: 258, max: 267, count: 24 }, { min: 268, max: 278, count: 25 }, { min: 279, max: 288, count: 26 }, { min: 289, max: 299, count: 27 }, { min: 300, max: 309, count: 28 }, { min: 310, max: 320, count: 29 }, { min: 321, max: 330, count: 30 }, { min: 331, max: 341, count: 31 }
+      ];
+      var splitIntervals = [
+        { min: 30, max: 38, count: 2 }, { min: 39, max: 59, count: 4 }, { min: 60, max: 80, count: 6 }, { min: 81, max: 101, count: 8 }, { min: 102, max: 122, count: 10 }, { min: 123, max: 143, count: 12 }, { min: 144, max: 164, count: 14 }, { min: 165, max: 185, count: 16 }, { min: 186, max: 206, count: 18 }, { min: 207, max: 227, count: 20 }, { min: 228, max: 248, count: 22 }, { min: 249, max: 269, count: 24 }, { min: 270, max: 290, count: 26 }, { min: 291, max: 311, count: 28 }, { min: 312, max: 332, count: 30 }, { min: 333, max: 353, count: 32 }
+      ];
+      var intervals = controlType === "razdelno" ? splitIntervals : standardIntervals;
+      for (var i = 0; i < intervals.length; i++) {
+        if (width >= intervals[i].min && width <= intervals[i].max) return intervals[i].count;
+      }
+      if (width < intervals[0].min) return intervals[0].count;
+      if (width > intervals[intervals.length - 1].max) return intervals[intervals.length - 1].count;
+      return 0;
+    }
+    function visualizeLameli(count, width) {
+      var visualizationDiv = document.getElementById("lameli-visualization");
+      var countSpan = document.getElementById("lameli-info");
+      var containerDiv = document.getElementById("lameli-container");
+      if (!visualizationDiv || !countSpan || !containerDiv) return;
+      if (count <= 0) {
+        visualizationDiv.style.display = "none";
+        resetLamelaColors();
+        return;
+      }
+      countSpan.textContent = "Ламели: " + count;
+      containerDiv.innerHTML = "";
+      lamelaColors = new Array(count).fill(null);
+      lamelaFirstFillDone = false;
+      var widthPerLamela = (width / count).toFixed(1);
+      for (var i = 1; i <= count; i++) {
+        var lamelaDiv = document.createElement("div");
+        lamelaDiv.className = "lamela-item";
+        lamelaDiv.title = "Ламел " + i + " • ~" + widthPerLamela + " см";
+        var index = i - 1;
+        lamelaDiv.dataset.index = index;
+        lamelaDiv.addEventListener("click", function(idx) { return function() { applyColorToLamela(idx); }; }(index));
+        lamelaDiv.addEventListener("dblclick", function(idx) { return function() { clearLamelaColor(idx); }; }(index));
+        lamelaDiv.addEventListener("contextmenu", function(e) { e.preventDefault(); clearLamelaColor(parseInt(e.currentTarget.dataset.index, 10)); });
+        if (lamelaColors[index]) setLamelaColorStyles(lamelaDiv, lamelaColors[index]);
+        containerDiv.appendChild(lamelaDiv);
+      }
+      visualizationDiv.style.display = "block";
+      updateLamelaSummary();
     }
     function generateTable(tableId, priceTable, title) {
       const table = document.getElementById(tableId);
